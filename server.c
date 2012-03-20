@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 	}
 
 	while (1) {
-		printf("\n----等待新的连接到来开始新一轮聊天……\n");
+		printf("\nwaiting for a new connection......\n");
 		len = sizeof(struct sockaddr);
 		if ((new_fd =accept(sockfd, (struct sockaddr *) &their_addr,
 						&len)) == -1) {
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 					ntohs(their_addr.sin_port), new_fd);
 
 		/* 开始处理每个新连接上的数据收发 */
-		printf("\n准备就绪，可以开始聊天了……直接输入消息回车即可发信息给对方\n");
+		printf("\nready,input message and press ENTER to send...\n");
 		while (1) {
 			/* 把集合清空 */
 			FD_ZERO(&rfds);
@@ -132,6 +132,7 @@ int main(int argc, char **argv)
 			}
 		}
 		close(new_fd);
+		//break;
 		/* 处理每个新连接上的数据收发结束 */
 		printf("还要和其它连接聊天吗？(no->退出)");
 		fflush(stdout);
