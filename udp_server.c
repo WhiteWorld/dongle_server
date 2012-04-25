@@ -45,7 +45,7 @@ int main(int argc,char **argv)
 	addr_len = sizeof(c_addr);
 	char sendbuff[128];
 	while (1) {
-		len = recvfrom(sock, buff, sizeof(buff) - 1, 0,
+		len = recvfrom(sock, buff, sizeof(buff), 0,
 				(struct sockaddr *) &c_addr, &addr_len);
 		if (len < 0) {
 			perror("recvfrom");
