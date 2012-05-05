@@ -6,6 +6,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <arpa/inet.h>
+#define MAX 2048
 int main(int argc,char **argv)
 {
 	struct sockaddr_in s_addr;
@@ -13,7 +14,7 @@ int main(int argc,char **argv)
 	int sock;
 	socklen_t addr_len;
 	int len;
-	char buff[128];
+	char buff[MAX];
 
 	/*  socket , SOCK_DGRAM */
 	if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
@@ -25,13 +26,13 @@ int main(int argc,char **argv)
 	memset(&s_addr, 0, sizeof(struct sockaddr_in));
 	/**/
 	s_addr.sin_family = AF_INET;
-	if (argv[2])
-		s_addr.sin_port = htons(atoi(argv[2]));
-	else
+	//if (argv[2])
+	//	s_addr.sin_port = htons(atoi(argv[2]));
+	//else
 		s_addr.sin_port = htons(7838);
-	if (argv[1])
-		s_addr.sin_addr.s_addr = inet_addr(argv[1]);
-	else
+	//if (argv[1])
+	//	s_addr.sin_addr.s_addr = inet_addr(argv[1]);
+	//else
 		s_addr.sin_addr.s_addr = INADDR_ANY;
 
 	/*Bind*/
@@ -43,7 +44,7 @@ int main(int argc,char **argv)
 
 	/*while*/
 	addr_len = sizeof(c_addr);
-	char sendbuff[128];
+	char sendbuff[MAX];
 	while (1) {
 		len = recvfrom(sock, buff, sizeof(buff), 0,
 				(struct sockaddr *) &c_addr, &addr_len);

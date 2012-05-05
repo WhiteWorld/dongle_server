@@ -6,14 +6,15 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <arpa/inet.h>
+#define MAX 2048
 int main(int argc, char **argv)
 {
 	struct sockaddr_in s_addr;
 	int sock;
 	int addr_len;
 	int len;
-	char buff[128];
-	char receivebuff[128];
+	char buff[MAX];
+	char receivebuff[MAX];
 	/* socket , SOCK_DGRAM */
 	if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) == -1) {
 		perror("socket");
