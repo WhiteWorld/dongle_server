@@ -37,8 +37,11 @@ int main(int argc, char **argv)
 
 	/*send UDP*/
 	addr_len = sizeof(s_addr);
+	int num=0;
 	while(1){
-		strcpy(buff, "hello i'm here");
+		//strcpy(buff, "hello i'm here");
+		num++;
+		sprintf(buff,"%d",num);
 		len = sendto(sock, buff, strlen(buff), 0,
 			(struct sockaddr *) &s_addr, addr_len);
 		if (len < 0) {
@@ -46,6 +49,7 @@ int main(int argc, char **argv)
 			return 3;
 		}
 		printf("send:%s.\n\n",buff);
+
 		len = recvfrom(sock, receivebuff, sizeof(receivebuff) - 1, 0,
 				(struct sockaddr *) &s_addr, &addr_len);
 		if (len < 0) {
@@ -54,6 +58,7 @@ int main(int argc, char **argv)
 		}
 
 		receivebuff[len] = '\0';
+		num=atoi(receivebuff);
 		printf("receive from%s:%d \nmessage:%s\n\n",
 				inet_ntoa(s_addr.sin_addr), ntohs(s_addr.sin_port), receivebuff);
 		sleep(10);

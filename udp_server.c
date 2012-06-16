@@ -45,6 +45,7 @@ int main(int argc,char **argv)
 	/*while*/
 	addr_len = sizeof(c_addr);
 	char sendbuff[MAX];
+	int num;
 	while (1) {
 		len = recvfrom(sock, buff, sizeof(buff), 0,
 				(struct sockaddr *) &c_addr, &addr_len);
@@ -54,10 +55,14 @@ int main(int argc,char **argv)
 		}
 
 		buff[len] = '\0';
+
 		printf("receive from%s:%d \nmessage:%s\n\n",
 				inet_ntoa(c_addr.sin_addr), ntohs(c_addr.sin_port), buff);
 		sleep(10);
-		strcpy(sendbuff,"hello");
+		//strcpy(sendbuff,"hello");
+		num=atoi(buff);
+		num++;
+		sprintf(sendbuff,"%d",num);
 		sendto(sock,sendbuff,strlen(sendbuff),0,
 				(struct sockaddr *)&c_addr,addr_len);
 		if(len<0){
